@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="GoORMHelperCache">
+    <option name="schemaMapping">
+      <map>
+        <entry key="DbRecord">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/internal/database/gorm_adapter/gorm_db_record.go" />
+              <option value="file://$PROJECT_DIR$/internal/database/spec/models/record_model.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="GormDbAdapter">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/internal/database/gorm_adapter/gorm_adapter.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="GormRecord">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/internal/database/gorm_adapter/gorm_db_record.go" />
+            </set>
+          </value>
+        </entry>
+        <entry key="Record">
+          <value>
+            <set>
+              <option value="file://$PROJECT_DIR$/internal/database/models/record_model.go" />
+              <option value="file://$PROJECT_DIR$/internal/database/spec/models/record_model.go" />
+            </set>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="scannedPathMapping">
+      <map>
+        <entry key="file://$PROJECT_DIR$/cmd/ligthhouse.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1733161976516" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/internal/database/gorm_adapter/gorm_adapter.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1733162996519" />
+              <option name="schema">
+                <list>
+                  <option value="GormDbAdapter" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/internal/database/gorm_adapter/gorm_adapter_constructor..go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1733160632374" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/internal/database/gorm_adapter/gorm_adapter_constructor.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1733161449567" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/internal/database/gorm_adapter/gorm_db_record.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1733162922486" />
+              <option name="schema">
+                <list>
+                  <option value="GormRecord" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/internal/database/interface/connector-interface.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1733156224111" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/internal/database/interface/connector_interface.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1733156200406" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/internal/database/models/record_model.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1733159885012" />
+              <option name="schema">
+                <list>
+                  <option value="Record" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/internal/database/spec/connector_interface.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1733157324115" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/internal/database/spec/interfaces/connector_interface.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1733161877272" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/internal/database/spec/interfaces/db_record_interface.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1733160385433" />
+            </ScannedPath>
+          </value>
+        </entry>
+        <entry key="file://$PROJECT_DIR$/internal/database/spec/models/record_model.go">
+          <value>
+            <ScannedPath>
+              <option name="lastModified" value="1733158436352" />
+              <option name="schema">
+                <list>
+                  <option value="DbRecord" />
+                  <option value="Record" />
+                </list>
+              </option>
+            </ScannedPath>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="tableStructMapping">
+      <map>
+        <entry key="db_record" value="DbRecord" />
+        <entry key="gorm_db_adapter" value="GormDbAdapter" />
+        <entry key="gorm_record" value="GormRecord" />
+        <entry key="record" value="Record" />
+      </map>
+    </option>
+    <option name="lastTimeChecked" value="1733154718077" />
+  </component>
+</project>
