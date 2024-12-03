@@ -1,0 +1,43 @@
+name: lighthouse-docker
+
+services:
+
+  lh-pg:
+    image: postgres:17.2
+    container_name: lh-pg
+    environment:
+      - POSTGRES_PASSWORD=${PG_PASSWORD}
+      - POSTGRES_USER=${PG_USER}
+    ports:
+      - "${PG_PORT}:5432"
+    networks:
+      - internal
+    volumes:
+      - lh-pg-disk:/var/lib/postgresql/data
+    restart: unless-stopped
+
+  lg-app:
+    build:
+      context: .
+      dockerfile: dockerfile-lh-app
+    container_name: lh-app
+    environment:
+      - PG_PASSWORD=${PG_PASSWORD}
+      - PG_USER=${PG_USER}
+      - PG_PORT=${PG_PORT}
+      - LH_PORT=${LH_PORT}
+    ports:
+      - "${LH_PORT}:${LH_PORT}"
+    networks:
+      - internal
+    depends_on:
+      - lh-pg
+    restart: unless-stopped
+
+
+volumes:
+  lh-pg-disk:
+
+
+networks:
+  internal:

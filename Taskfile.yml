@@ -1,0 +1,27 @@
+version: '3'
+
+tasks:
+  dev:db:start:
+    desc: 'Run PG locally using docker'
+    cmds:
+      - echo "Starting docker:lh-pg"
+      - docker compose --file ./Dockercompose.yml --env-file ./dockercompose.dev.env up --build --force-recreate -d lh-pg
+
+  dev:db:stop:
+    desc: "Stop PG locally running on docker"
+    cmds:
+      - echo "Stopping docker:lh-pg"
+      - docker compose --file ./Dockercompose.yml --env-file ./dockercompose.dev.env down lh-pg
+
+  dev:app:start:
+    desc: "Run Lighthouse locally using docker"
+    cmds:
+      - echo "Starting docker:lg-app"
+      - docker compose --file ./Dockercompose.yml --env-file ./dockercompose.dev.env up --build --force-recreate lg-app
+
+  dev:
+    desc: "Runs the entire application locally using docker"
+    cmds:
+      - echo "Starting docker:lg-app and docker:lg-pg"
+      - docker compose --file ./Dockercompose.yml --env-file ./dockercompose.dev.env up --build --force-recreate
+
