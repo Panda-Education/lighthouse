@@ -8,7 +8,7 @@ Struct and related methods to code logic
 
 // Record Type used for code representation of a record
 type Record struct {
-	Target url.URL
+	Target *url.URL
 	Id     string
 }
 
@@ -16,7 +16,7 @@ type Record struct {
 Generators
 ////////////////////////////// */
 
-func CreateRecord(url url.URL, id string) (Record, error) {
+func CreateRecord(url *url.URL, id string) (Record, error) {
 	return Record{
 		Target: url,
 		Id:     id,
@@ -31,7 +31,7 @@ func CreateRecordFromString(target string, id string) (Record, error) {
 	}
 
 	return Record{
-		Target: *parsedUrl,
+		Target: parsedUrl,
 		Id:     id,
 	}, nil
 }

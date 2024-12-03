@@ -1,17 +1,17 @@
-package gorm_adapter
+package gorm_pg_adapter
 
-type GormAdapterConstructorOption func(adapter *GormDbAdapter)
+type GormPgAdapterConstructorOption func(adapter *GormPgAdapter)
 
-func CreateGormAdapter(
+func CreateGormPgAdapter(
 	host string,
 	user string,
 	password string,
 	port int,
 	dbname string,
-	opts ...GormAdapterConstructorOption,
-) (*GormDbAdapter, error) {
+	opts ...GormPgAdapterConstructorOption,
+) (*GormPgAdapter, error) {
 
-	newAdapter := &GormDbAdapter{
+	newAdapter := &GormPgAdapter{
 		host:     host,
 		user:     user,
 		password: password,

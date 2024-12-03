@@ -1,4 +1,4 @@
-package gorm_adapter
+package gorm_pg_adapter
 
 import (
 	"Lighthouse/internal/database/models"
@@ -8,8 +8,8 @@ import (
 	"gorm.io/gorm"
 )
 
-// GormDbAdapter implements DatabaseConnectorStrategy
-type GormDbAdapter struct {
+// GormPgAdapter implements DatabaseConnectorStrategy
+type GormPgAdapter struct {
 	host     string
 	user     string
 	password string
@@ -19,7 +19,7 @@ type GormDbAdapter struct {
 	timezone string
 }
 
-func (g *GormDbAdapter) createDsnString() string {
+func (g *GormPgAdapter) createDsnString() string {
 	return fmt.Sprintf(
 		"host=%v user=%v password=%v dbname=%v port=%v sslmode=%v TimeZone=%v",
 		g.host,
@@ -32,42 +32,46 @@ func (g *GormDbAdapter) createDsnString() string {
 	)
 }
 
-func (g *GormDbAdapter) Connect(ctx context.Context) error {
+func (g *GormPgAdapter) Connect(ctx context.Context) error {
 	return nil
 }
 
-func (g *GormDbAdapter) Disconnect(ctx context.Context) error {
+func (g *GormPgAdapter) Disconnect(ctx context.Context) error {
 	return nil
 }
 
-func (g *GormDbAdapter) InsertRecord(
+func (g *GormPgAdapter) InsertRecord(
 	ctx context.Context,
-	record models.Record,
+	record *models.Record,
 ) error {
 	return nil
 }
 
-func (g *GormDbAdapter) DeleteRecord(
+func (g *GormPgAdapter) DeleteRecord(
 	ctx context.Context,
-	record models.Record,
+	record *models.Record,
 ) error {
 	return nil
 }
 
-func (g *GormDbAdapter) FindRecord(
+func (g *GormPgAdapter) FindRecord(
 	ctx context.Context,
 	id string,
-) (models.Record, error) {
-	return models.Record{}, nil
+) (*models.Record, error) {
+	return &models.Record{}, nil
 }
 
-func (g *GormDbAdapter) Migrate(ctx context.Context) error {
+func (g *GormPgAdapter) Migrate(ctx context.Context) error {
 	db, err := gorm.Open(postgres.Open(g.createDsnString()), &gorm.Config{})
 	if err != nil {
 		return err
 	}
 
-	err = db.WithContext(ctx).AutoMigrate(&GormRecord{})
+	err = db.
+		WithContext(ctx).
+		AutoMigrate(
+			&GormPgRecord{},
+		)
 	if err != nil {
 		return err
 	}
