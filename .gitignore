@@ -1,0 +1,8 @@
+
+
+### Ide files
+.idea/
+.vs-code/
+
+### MacOS Files
+.DS_Store/
