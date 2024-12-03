@@ -6,3 +6,9 @@
 
 ### MacOS Files
 .DS_Store/
+
+### Environment Files
+**/*.env
+**/.env.*
+!**/*.env.sample
+!**/*.sample
