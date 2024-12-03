@@ -16,8 +16,8 @@ type Record struct {
 Generators
 ////////////////////////////// */
 
-func CreateRecord(url *url.URL, id string) (Record, error) {
-	return Record{
+func CreateRecord(url *url.URL, id string) (*Record, error) {
+	return &Record{
 		Target: url,
 		Id:     id,
 	}, nil

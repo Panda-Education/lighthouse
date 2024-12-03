@@ -19,10 +19,10 @@ type GormPgRecord struct {
 }
 
 // ToRecord Method to convert GormPgRecord to Record
-func (r *GormPgRecord) ToRecord() (models.Record, error) {
+func (r *GormPgRecord) ToRecord() (*models.Record, error) {
 	targetUrl, urlErr := url.Parse(r.Target)
 	if urlErr != nil {
-		return models.Record{}, urlErr
+		return &models.Record{}, urlErr
 	}
 	return models.CreateRecord(targetUrl, r.Id)
 }
@@ -31,8 +31,8 @@ func (r *GormPgRecord) ToRecord() (models.Record, error) {
 Convert Record to GormPgRecord
 ////////////////////////////// */
 
-func convertRecordToDbRecord(record models.Record) (GormPgRecord, error) {
-	return GormPgRecord{
+func ConvertRecordToDbRecord(record *models.Record) (*GormPgRecord, error) {
+	return &GormPgRecord{
 		Target: record.Target.String(),
 		Id:     record.Id,
 	}, nil
