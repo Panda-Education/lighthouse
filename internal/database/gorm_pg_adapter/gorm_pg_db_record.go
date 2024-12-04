@@ -25,7 +25,7 @@ func (r *GormPgRecord) ToRecord() (*models.Record, error) {
 	if urlErr != nil {
 		return &models.Record{}, urlErr
 	}
-	return models.CreateRecord(targetUrl, r.Id)
+	return models.CreateRecord(targetUrl, r.Id, r.Uid)
 }
 
 /* //////////////////////////////
@@ -36,5 +36,6 @@ func ConvertRecordToDbRecord(record *models.Record) (*GormPgRecord, error) {
 	return &GormPgRecord{
 		Target: record.Target.String(),
 		Id:     record.Id,
+		Uid:    record.Uid,
 	}, nil
 }

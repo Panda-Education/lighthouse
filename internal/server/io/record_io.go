@@ -9,5 +9,5 @@ type RecordIO struct {
 }
 
 func (r *RecordIO) ToRecord() (*models.Record, error) {
-	return models.CreateRecordFromString(r.Target, r.Id)
+	return models.CreateRecordFromString(r.Target, r.Id, r.Uid)
 }

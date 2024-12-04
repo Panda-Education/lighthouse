@@ -17,14 +17,15 @@ type Record struct {
 Generators
 ////////////////////////////// */
 
-func CreateRecord(url *url.URL, id string) (*Record, error) {
+func CreateRecord(url *url.URL, id string, uid string) (*Record, error) {
 	return &Record{
 		Target: url,
 		Id:     id,
+		Uid:    uid,
 	}, nil
 }
 
-func CreateRecordFromString(target string, id string) (*Record, error) {
+func CreateRecordFromString(target string, id string, uid string) (*Record, error) {
 
 	parsedUrl, urlErr := url.Parse(target)
 	if urlErr != nil {
@@ -34,5 +35,6 @@ func CreateRecordFromString(target string, id string) (*Record, error) {
 	return &Record{
 		Target: parsedUrl,
 		Id:     id,
+		Uid:    uid,
 	}, nil
 }
