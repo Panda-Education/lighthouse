@@ -10,7 +10,7 @@ type DatabaseConnectorStrategy interface {
 	Disconnect(ctx context.Context) error
 	InsertRecord(ctx context.Context, record *models.Record) error
 	UpdateRecord(ctx context.Context, record *models.Record) error
-	DeleteRecord(ctx context.Context, record *models.Record) error
+	DeleteRecord(ctx context.Context, id string) error
 	FindRecord(ctx context.Context, id string) (*models.Record, error)
 	Migrate(ctx context.Context) error
 }

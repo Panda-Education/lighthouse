@@ -4,7 +4,9 @@ import (
 	"Lighthouse/internal/database/gorm_pg_adapter"
 	"Lighthouse/internal/database/spec/interfaces"
 	"Lighthouse/internal/server/handlers/api"
+	"Lighthouse/internal/server/handlers/redirect"
 	"Lighthouse/internal/server/middleware"
+	"context"
 	"fmt"
 	"net/http"
 	"os"
@@ -14,13 +16,17 @@ import (
 func createApplicationDb() interfaces.DatabaseConnectorStrategy {
 
 	adapter, err := gorm_pg_adapter.CreateGormPgAdapter(
-		"localhost",
-		"postgre",
+		"lh-pg",
+		"postgres",
 		"password",
-		9001,
+		5432,
 		"lighthouse_dev",
 	)
 	if err != nil {
+		panic(err)
+	}
+
+	if err := adapter.Migrate(context.Background()); err != nil {
 		panic(err)
 	}
 
@@ -45,6 +51,15 @@ func Serve() {
 					middleware.ApplyTimeout(time.Second*5),
 					middleware.ApplyAttachDb(createApplicationDb()),
 				),
+			),
+		)
+	mainRouter.
+		Handle(
+			"/",
+			middleware.Apply(
+				redirect.Router(),
+				middleware.ApplyTimeout(time.Second*2),
+				middleware.ApplyAttachDb(createApplicationDb()),
 			),
 		)
 

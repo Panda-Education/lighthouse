@@ -12,8 +12,9 @@ Database struct and related records
 
 // GormPgRecord Type used for DB representation
 type GormPgRecord struct {
-	Target    string
+	Target    string    `gorm:"not null;type:varchar(100);default:null"`
 	Id        string    `gorm:"primaryKey"`
+	Uid       string    `gorm:"index:idx_uid"`
 	createdAt time.Time `gorm:"autoCreateTime"`
 	updatedAt time.Time `gorm:"autoUpdateTime"`
 }

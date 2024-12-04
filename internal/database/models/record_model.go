@@ -10,6 +10,7 @@ Struct and related methods to code logic
 type Record struct {
 	Target *url.URL
 	Id     string
+	Uid    string
 }
 
 /* //////////////////////////////
@@ -23,14 +24,14 @@ func CreateRecord(url *url.URL, id string) (*Record, error) {
 	}, nil
 }
 
-func CreateRecordFromString(target string, id string) (Record, error) {
+func CreateRecordFromString(target string, id string) (*Record, error) {
 
 	parsedUrl, urlErr := url.Parse(target)
 	if urlErr != nil {
-		return Record{}, urlErr
+		return &Record{}, urlErr
 	}
 
-	return Record{
+	return &Record{
 		Target: parsedUrl,
 		Id:     id,
 	}, nil

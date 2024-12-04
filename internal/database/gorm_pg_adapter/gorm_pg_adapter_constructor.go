@@ -17,7 +17,6 @@ func CreateGormPgAdapter(
 		password: password,
 		port:     port,
 		dbname:   dbname,
-		sslMode:  "disabled",
 		timezone: "Asia/Singapore",
 	}
 

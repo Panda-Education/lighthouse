@@ -16,7 +16,6 @@ type GormPgAdapter struct {
 	password string
 	port     int
 	dbname   string
-	sslMode  string
 	timezone string
 
 	db *gorm.DB
@@ -24,13 +23,12 @@ type GormPgAdapter struct {
 
 func (g *GormPgAdapter) createDsnString() string {
 	return fmt.Sprintf(
-		"host=%v user=%v password=%v dbname=%v port=%v sslmode=%v TimeZone=%v",
+		"host=%v user=%v password=%v dbname=%v port=%v TimeZone=%v",
 		g.host,
 		g.user,
 		g.password,
 		g.dbname,
 		g.port,
-		g.sslMode,
 		g.timezone,
 	)
 }
@@ -104,15 +102,32 @@ func (g *GormPgAdapter) UpdateRecord(
 		return err
 	}
 
+	result := g.db.
+		Model(&GormPgRecord{}).
+		Where("id = ?", record.Id).
+		Update("Target", record.Target)
+
+	if result.Error != nil {
+		return result.Error
+	}
+
 	return nil
 }
 
 func (g *GormPgAdapter) DeleteRecord(
 	ctx context.Context,
-	record *models.Record,
+	id string,
 ) error {
 	if err := g.ensureDbConnection(ctx); err != nil {
 		return err
+	}
+
+	result := g.db.Delete(&GormPgRecord{}, "id = ?", id)
+	if result.Error != nil {
+		return result.Error
+	}
+	if result.RowsAffected == 0 {
+		return errors.New("entry not found")
 	}
 
 	return nil
