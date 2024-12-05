@@ -1,6 +1,7 @@
 package server
 
 import (
+	"Lighthouse/internal/database/database_cache"
 	"Lighthouse/internal/database/gorm_pg_adapter"
 	"Lighthouse/internal/database/spec/interfaces"
 	"Lighthouse/internal/server/handlers/api"
@@ -22,15 +23,18 @@ func createApplicationDb() interfaces.DatabaseConnectorStrategy {
 		5432,
 		"lighthouse_dev",
 	)
+
+	db := database_cache.CreateLruDb(adapter, 256)
+
 	if err != nil {
 		panic(err)
 	}
 
-	if err := adapter.Migrate(context.Background()); err != nil {
+	if err := db.Migrate(context.Background()); err != nil {
 		panic(err)
 	}
 
-	return adapter
+	return db
 }
 
 func Serve() {
