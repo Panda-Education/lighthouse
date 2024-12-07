@@ -24,11 +24,11 @@ func createApplicationDb() interfaces.DatabaseConnectorStrategy {
 		"lighthouse_dev",
 	)
 
-	db := database_cache.CreateLruDb(adapter, 256)
-
 	if err != nil {
 		panic(err)
 	}
+
+	db := database_cache.CreateLruDb(adapter, 256)
 
 	if err := db.Migrate(context.Background()); err != nil {
 		panic(err)
@@ -44,6 +44,8 @@ func Serve() {
 		panic("[LH_PORT] Port for server not set!")
 	}
 
+	db := createApplicationDb()
+
 	mainRouter := http.NewServeMux()
 	mainRouter.
 		Handle(
@@ -53,7 +55,7 @@ func Serve() {
 				middleware.Apply(
 					api.Router(),
 					middleware.ApplyTimeout(time.Second*5),
-					middleware.ApplyAttachDb(createApplicationDb()),
+					middleware.ApplyAttachDb(db),
 				),
 			),
 		)
@@ -63,7 +65,7 @@ func Serve() {
 			middleware.Apply(
 				redirect.Router(),
 				middleware.ApplyTimeout(time.Second*2),
-				middleware.ApplyAttachDb(createApplicationDb()),
+				middleware.ApplyAttachDb(db),
 			),
 		)
 
