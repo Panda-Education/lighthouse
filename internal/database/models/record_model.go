@@ -8,9 +8,9 @@ Struct and related methods to code logic
 
 // Record Type used for code representation of a record
 type Record struct {
-	Target *url.URL
-	Id     string
-	Uid    string
+	Target *url.URL // Link to be redirected to
+	Id     string   // Short form URL
+	Uid    string   // Record ID in database
 }
 
 /* //////////////////////////////
