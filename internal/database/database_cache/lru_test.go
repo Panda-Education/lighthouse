@@ -25,7 +25,7 @@ func TestCreateLruDb(t *testing.T) {
 }
 
 func TestLruDbCache_InsertOneRecord(t *testing.T) {
-	//t.Parallel()
+	t.Parallel()
 	db := CreateLruDb(
 		mock.CreateDb(
 			mock.DbLatency(time.Millisecond*10),
@@ -89,7 +89,7 @@ func TestLruDbCache_InsertCapacityPlusOne(t *testing.T) {
 	t.Parallel()
 
 	capacity := 4
-	n_records := capacity + 1
+	nRecords := capacity + 1
 
 	db := CreateLruDb(
 		mock.CreateDb(
@@ -109,7 +109,7 @@ func TestLruDbCache_InsertCapacityPlusOne(t *testing.T) {
 
 	var records []*models.Record
 
-	for i := 0; i < n_records; i++ {
+	for i := 0; i < nRecords; i++ {
 		record, _ := models.CreateRecordFromString(
 			"https://www.google.com",
 			fmt.Sprintf("google_%v", i),
@@ -122,7 +122,7 @@ func TestLruDbCache_InsertCapacityPlusOne(t *testing.T) {
 		)
 	}
 
-	for i := 0; i < n_records-1; i++ {
+	for i := 0; i < nRecords-1; i++ {
 		if err := db.InsertRecord(ctx, records[i]); err != nil {
 			t.Errorf("Could not insert record: %s", err)
 			return
@@ -144,7 +144,7 @@ func TestLruDbCache_InsertCapacityPlusOne(t *testing.T) {
 	}
 
 	// Insert last record and evict one record
-	if err := db.InsertRecord(ctx, records[n_records-1]); err != nil {
+	if err := db.InsertRecord(ctx, records[nRecords-1]); err != nil {
 		t.Errorf("Could not insert record: %s", err)
 		return
 	}
@@ -168,32 +168,43 @@ func TestLruDbCache_InsertCapacityPlusOne(t *testing.T) {
 
 	// Validate DB action history
 	expectedDbHistory := []mock.DbAction{
+		// initial insert, will require Db to connect
+		// n=0
 		mock.InsertRecordAttempt,
 		mock.ConnectAttempt,
 		mock.ConnectSuccess,
 		mock.InsertRecordSuccess,
 
+		// n=1
 		mock.InsertRecordAttempt,
 		mock.InsertRecordSuccess,
 
+		// n=2
 		mock.InsertRecordAttempt,
 		mock.InsertRecordSuccess,
 
+		// n=3
 		mock.InsertRecordAttempt,
 		mock.InsertRecordSuccess,
 
+		// Cached: Find n=0
+
+		// n=4
+		// Evicts n=1
 		mock.InsertRecordAttempt,
 		mock.InsertRecordSuccess,
 
+		// Fetch n=1
 		mock.FindRecordAttempt,
 		mock.FindRecordSuccess,
 
+		// Clean up
 		mock.DisconnectAttempt,
 		mock.DisconnectSuccess,
 	}
 
 	if !reflect.DeepEqual(expectedDbHistory, db.db.(*mock.Db).History) {
-		t.Errorf("History does not match. Got: %v, Expected: %v", db.db.(*mock.Db).History, expectedDbHistory)
+		t.Errorf("History does not match.\nGot:\t\t%v\nExpected:\t%v", db.db.(*mock.Db).History, expectedDbHistory)
 	}
 
 }
